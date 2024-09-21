@@ -1,0 +1,48 @@
+version: "3"
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  api:
+    build: ./backend
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8000 -b '0.0.0.0'"
+    volumes:
+      - ./backend:/api
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgresql://postgres:${DB_PASSWORD}@db/api_development
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - backend
+      - frontend
+    
+  front:
+    build: ./frontend
+    volumes:
+      - ./frontend:/front
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+    networks:
+      - frontend
+
+volumes:
+  db_data:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

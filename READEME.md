@@ -1,0 +1,3 @@
+```
+mv ./.env.sample ./.env
+```
