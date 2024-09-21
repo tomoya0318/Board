@@ -1,24 +1,27 @@
-### 環境変数の設定  
-   1. `.env`ファイルを生成
-        ```
-        mv ./.env.sample ./.env
-        ```
-    2. `DB_PASSWORD`に下記のコマンドで生成した値を使用
-        ```
-        openssl rand -base64 32 | tr -dc 'A-Za-z0-9' | head -c 32; echo
-        ```
+# 環境変数の設定とコンテナの立ち上げ
 
-### コンテナの立ち上げ  
-   1. dockerのimage作成
-        ```
-        docker compose build
-        ```
-   2. DBの作成
-        ```
-        docker compose run api rails db:create
-        ```
-   3. 起動  
-      1. 下記のコマンドで立ち上げることでfrontを`http://localhost:3000`, backを`http://localhost:8000`で立ち上げ
-      ```
-      docker compose up
-      ```
+## 環境変数の設定  
+1. **`.env`ファイルを生成**
+    ```bash
+    mv ./.env.sample ./.env
+    ```  
+2. **`DB_PASSWORD`に生成した値を使用**
+    ```bash
+    openssl rand -base64 32 | tr -dc 'A-Za-z0-9' | head -c 32
+    ```
+
+## コンテナの立ち上げ  
+1. **Dockerのイメージを作成**
+    ```bash
+    docker compose build
+    ```
+2. **データベースの作成**
+    ```bash
+    docker compose run api rails db:create
+    ```
+3. **コンテナを起動**
+    - 下記のコマンドでフロントエンドを`http://localhost:3000`、バックエンドを`http://localhost:8000`で立ち上げます。
+    ```bash
+    docker compose up
+    ```
+
