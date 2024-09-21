@@ -1,4 +1,4 @@
-1. 環境変数の設定  
+### 環境変数の設定  
    1. `.env`ファイルを生成
         ```
         mv ./.env.sample ./.env
@@ -8,7 +8,7 @@
         openssl rand -base64 32 | tr -dc 'A-Za-z0-9' | head -c 32; echo
         ```
 
-2. コンテナの立ち上げ  
+### コンテナの立ち上げ  
    1. dockerのimage作成
         ```
         docker compose build
