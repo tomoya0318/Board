@@ -5,9 +5,20 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
+    networks:
+      - backend
+
+  test-db:
+    image: postgres:13
+    volumes:
+      - test_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
     networks:
       - backend
 
@@ -17,16 +28,17 @@ services:
     volumes:
       - ./backend:/api
     environment:
-      RAILS_ENV: development
-      DATABASE_URL: postgresql://postgres:${DB_PASSWORD}@db/api_development
+      DATABASE_URL: postgresql://postgres:password@db/api_development
+      TEST_DATABASE_URL: postgresql://postgres:password@test-db/api_test
     ports:
       - "8000:8000"
     depends_on:
       - db
+      - test-db
     networks:
       - backend
       - frontend
-    
+
   front:
     build: ./frontend
     volumes:
@@ -40,7 +52,7 @@ services:
 
 volumes:
   db_data:
-
+  test_db:
 networks:
   frontend:
     driver: bridge
