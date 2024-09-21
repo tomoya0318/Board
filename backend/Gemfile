@@ -11,6 +11,9 @@ gem "bootsnap", require: false
 
 gem "ostruct"
 gem "logger"
+gem "base64"
+gem "bigdecimal"
+gem "mutex_m"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
