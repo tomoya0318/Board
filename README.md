@@ -15,6 +15,7 @@
       - `Next.js Frontend`をクリック
 
 ## コンテナの立ち上げ(ローカル環境でやりたい人向け)
+
 1. **Dockerのイメージを作成**
     ```bash
     docker compose build
