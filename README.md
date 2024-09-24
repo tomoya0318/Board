@@ -27,4 +27,3 @@
     ```bash
     docker compose up
     ```
-
