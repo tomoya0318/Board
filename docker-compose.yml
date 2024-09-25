@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:13
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
     ports:
@@ -43,6 +43,8 @@ services:
     build: ./frontend
     volumes:
       - ./frontend:/front
+      - node_modules:/front/node_modules
+      - next:/front/.next
     ports:
       - "3000:3000"
     tty: true
@@ -51,8 +53,11 @@ services:
       - frontend
 
 volumes:
-  db_data:
+  db:
   test_db:
+  node_modules:
+  next:
+
 networks:
   frontend:
     driver: bridge

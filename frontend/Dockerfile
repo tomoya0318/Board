@@ -8,5 +8,6 @@ RUN npm install
 
 COPY . .
 
-# 3000ポートで起動
+EXPOSE 3000
+
 CMD ["npm", "run", "dev"]

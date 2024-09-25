@@ -1,0 +1,8 @@
+{
+    "name": "Next.js Frontend",
+    "dockerComposeFile": ["../../docker-compose.yml"],
+    "service": "front",
+    "workspaceFolder": "/front",
+    "shutdownAction": "none",
+    "forwardPorts": [3000]
+  }
