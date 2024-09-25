@@ -3,8 +3,17 @@
 
 ## 開発にあたって
 - フロントエンドを`http://localhost:3000`，バックエンドを`http://localhost:8000`でアクセスできます．
-
 ## devcontainerを用いた開発環境の構築（推奨）
+1. vscodeの拡張機能であるDev Containerをインストール(vscodeで`ms-vscode-remote.remote-containers`と調べると出ます)
+2. 左下の`><`のマークをクリック
+3. コンテナで再度開くをクリック
+4. コンテナを開く
+   1. frontend開発を行う場合
+      - `Rails API Backend`をクリック
+   2. backend開発を行う場合
+      - `Next.js Frontend`をクリック
+
+## コンテナの立ち上げ(ローカル環境でやりたい人向け)
 1. vscodeの拡張機能であるDev Containerをインストール(vscodeで`ms-vscode-remote.remote-containers`と調べると出ます)
 2. 左下の`><`のマークをクリック
 3. コンテナで再度開くをクリック
