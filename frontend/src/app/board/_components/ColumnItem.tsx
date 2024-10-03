@@ -1,21 +1,12 @@
-export const ColumnItem = () => {
-  const itemList = [
-    {
-      "id": 1,
-      "text": "hello",
-      "order": 0
-    },
-    {
-      "id": 2,
-      "text": "goodbye",
-      "order": 1
-    }
-  ];
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { ItemList } from '@/types/board';
+
+export const ColumnItem = ({ itemList }: { itemList: ItemList[]}) => {
   return (
     <>
-      <div>Item</div>
       {itemList.map((item) => (
-        <div>{item.text}</div>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} className="prose p-2 m-2 bg-white">{item.text}</ReactMarkdown>
       ))}
     </>
   );
