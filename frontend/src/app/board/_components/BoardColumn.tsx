@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ColumnItem } from "./ColumnItem";
-import { Column } from "@/types/board";
+import { Board, Column } from "@/types/board";
 import EditIcon from "@mui/icons-material/Edit";
 
 type BoardColumnProps = {
   columns: Column[];
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>>;
+  setBoard: React.Dispatch<React.SetStateAction<Board>>;
 };
 
 export const BoardColumn = ({
   columns,
-  setColumns,
+  setBoard,
 }: BoardColumnProps): JSX.Element => {
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
   const prevColumnsLengthRef = useRef(columns.length);
@@ -39,11 +39,12 @@ export const BoardColumn = ({
   };
 
   const handleLabelChange = (columnId: number, newLabel: string) => {
-    setColumns((prevColumns) =>
-      prevColumns.map((column) =>
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      columns: prevBoard.columns.map((column) =>
         column.id === columnId ? { ...column, label: newLabel } : column,
       ),
-    );
+    }));
   };
 
   const handleBlur = (columnId: number) => {

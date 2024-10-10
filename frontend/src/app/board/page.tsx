@@ -18,6 +18,7 @@ const itemList = [
 
 const defaultData: BoardProps = {
   id: 1,
+  title: "board",
   columns: [
     {
       id: 1,
@@ -38,11 +39,11 @@ const defaultData: BoardProps = {
 };
 
 const Board = (): JSX.Element => {
-  const [columns, setColumns] = useState(defaultData.columns);
+  const [board, setBoard] = useState(defaultData);
   return (
     <div className="p-2 mt-2 mb-8 h-screen overflow-hidden">
-      <div className="text-3xl font-bold bg-gray-200">board page</div>
-      <BoardColumn columns={columns} setColumns={setColumns} />
+      <div className="text-3xl font-bold bg-gray-200">{board.title}</div>
+      <BoardColumn columns={board.columns} setBoard={setBoard} />
     </div>
   );
 };
