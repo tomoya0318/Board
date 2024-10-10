@@ -6,6 +6,5 @@ Rails.application.routes.draw do
   get '/boards/:id', to: 'boards#show', as: 'board'
   get '/boards/:id/edit', to: 'boards#edit', as: 'edit_board'
   patch '/boards/:id', to: 'boards#update'
-  put '/boards/:id', to: 'boards#update'
   delete '/boards/:id', to: 'boards#destroy'
 end

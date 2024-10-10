@@ -18,14 +18,14 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "create board" do
     assert_difference('Board.count') do
-      post boards_url, params: {board: {user_id: "user_3", title: " Third Board", categories: ["category4"]}}
+      post boards_url, params: {board: {title: " Third Board", categories: ["category4"]}}
     end
     assert_redirected_to boards_path
   end
 
   test "create board with invalid data" do
     assert_no_difference('Board.count') do
-      post boards_url, params: {board: { user_id: "", title: "", categories: []}}
+      post boards_url, params: {board: {title: "", categories: []}}
     end
     assert_response :unprocessable_entity
   end

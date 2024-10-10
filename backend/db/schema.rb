@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_102142) do
   enable_extension "plpgsql"
 
   create_table "boards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
