@@ -1,5 +1,5 @@
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Item } from "@/types/board";
 
 export const ColumnItem = ({ items }: { items: Item[] }) => {
