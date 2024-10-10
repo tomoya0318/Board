@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ColumnItem } from "./ColumnItem";
 import { Column } from "@/types/board";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,17 +13,23 @@ export const BoardColumn = ({
   setColumns,
 }: BoardColumnProps): JSX.Element => {
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
+  const prevColumnsLengthRef = useRef(columns.length);
 
   useEffect(() => {
-    const newIsEditing = columns.reduce(
-      (acc, column) => {
-        acc[column.id] = false;
-        return acc;
-      },
-      {} as Record<number, boolean>,
-    );
-    setIsEditing(newIsEditing);
-  }, []);
+    if (columns.length > prevColumnsLengthRef.current) {
+      const newIsEditing = columns.reduce(
+        (acc, column) => {
+          if (!(column.id in acc)) {
+            acc[column.id] = false;
+          }
+          return acc;
+        },
+        { ...isEditing } as Record<number, boolean>,
+      );
+      setIsEditing(newIsEditing);
+    }
+    prevColumnsLengthRef.current = columns.length;
+  }, [columns]);
 
   const handleEditing = (columnId: number) => {
     setIsEditing((prev) => ({
