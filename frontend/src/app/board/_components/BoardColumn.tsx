@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { ColumnItem } from "./ColumnItem";
 import { Board, Column } from "@/types/board";
 import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
+import { AddColumnForm } from "./AddColumnForm";
 
-type BoardColumnProps = {
+export type BoardColumnProps = {
   columns: Column[];
   setBoard: React.Dispatch<React.SetStateAction<Board>>;
 };
@@ -14,6 +16,7 @@ export const BoardColumn = ({
 }: BoardColumnProps): JSX.Element => {
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
   const prevColumnsLengthRef = useRef(columns.length);
+  const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
   useEffect(() => {
     if (columns.length > prevColumnsLengthRef.current) {
@@ -84,6 +87,18 @@ export const BoardColumn = ({
           <ColumnItem items={column.items} />
         </div>
       ))}
+      <button
+        onClick={() => setShowAddForm(true)}
+        className="p-2 bg-gray-100 w-10 h-10"
+      >
+        <AddIcon />
+      </button>
+      {showAddForm && (
+        <AddColumnForm
+          setBoard={setBoard}
+          onClose={() => setShowAddForm(false)}
+        />
+      )}
     </div>
   );
 };
