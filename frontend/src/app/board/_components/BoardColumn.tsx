@@ -4,50 +4,53 @@ import { Column } from "@/types/board";
 import EditIcon from "@mui/icons-material/Edit";
 
 type BoardColumnProps = {
-  columns: Column[],
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>>
-}
+  columns: Column[];
+  setColumns: React.Dispatch<React.SetStateAction<Column[]>>;
+};
 
-export const BoardColumn = ({ columns, setColumns }: BoardColumnProps): JSX.Element => {
+export const BoardColumn = ({
+  columns,
+  setColumns,
+}: BoardColumnProps): JSX.Element => {
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
-    const newIsEditing = columns.reduce((acc, column) => {
-      acc[column.id] = false;
-      return acc;
-    }, {} as Record<number, boolean>);
+    const newIsEditing = columns.reduce(
+      (acc, column) => {
+        acc[column.id] = false;
+        return acc;
+      },
+      {} as Record<number, boolean>,
+    );
     setIsEditing(newIsEditing);
   }, []);
 
   const handleEditing = (columnId: number) => {
-    setIsEditing(prev => ({
+    setIsEditing((prev) => ({
       ...prev,
-      [columnId]: !prev[columnId]
+      [columnId]: !prev[columnId],
     }));
   };
 
   const handleLabelChange = (columnId: number, newLabel: string) => {
-    setColumns(prevColumns => (
-      prevColumns.map(column => (
-        column.id === columnId ? {...column, label: newLabel} : column
-      ))
-    ));
+    setColumns((prevColumns) =>
+      prevColumns.map((column) =>
+        column.id === columnId ? { ...column, label: newLabel } : column,
+      ),
+    );
   };
 
   const handleBlur = (columnId: number) => {
-    setIsEditing(prev => ({
+    setIsEditing((prev) => ({
       ...prev,
-      [columnId]: false
+      [columnId]: false,
     }));
   };
 
   return (
     <div className="flex p-2">
-      {columns.map(column => (
-        <div
-          key={column.id}
-          className="flex-none w-80 h-dvh mr-2 bg-slate-100"
-        >
+      {columns.map((column) => (
+        <div key={column.id} className="flex-none w-80 h-dvh mr-2 bg-slate-100">
           <div className="flex bg-red-100 items-center">
             <div className="text-2xl pl-2 flex-grow">
               {isEditing[column.id] ? (
@@ -71,7 +74,7 @@ export const BoardColumn = ({ columns, setColumns }: BoardColumnProps): JSX.Elem
               <EditIcon />
             </button>
           </div>
-          <ColumnItem items={column.items}/>
+          <ColumnItem items={column.items} />
         </div>
       ))}
     </div>
