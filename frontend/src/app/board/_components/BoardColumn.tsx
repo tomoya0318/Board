@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ColumnItem } from "./ColumnItem";
 import { Column } from "@/types/board";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 type BoardColumnProps = {
   columns: Column[],
