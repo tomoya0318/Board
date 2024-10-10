@@ -1,8 +1,8 @@
 {
-    "name": "Rails API Backend",
-    "dockerComposeFile": ["../../docker-compose.yml"],
-    "service": "api",
-    "workspaceFolder": "/api",
-    "forwardPorts": [8000, 5432, 5433],
-    "shutdownAction": "none"
-  }
+  "name": "Rails API Backend",
+  "dockerComposeFile": ["../../docker-compose.yml"],
+  "service": "api",
+  "workspaceFolder": "/api",
+  "forwardPorts": [8000, 5432, 5433],
+  "shutdownAction": "none"
+}
