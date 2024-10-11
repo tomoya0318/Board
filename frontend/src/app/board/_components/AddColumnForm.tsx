@@ -1,4 +1,3 @@
-// AddColumnForm.tsx
 import { Board } from "@/types/board";
 import { useState } from "react";
 
