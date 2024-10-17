@@ -18,15 +18,12 @@ class BoardsController < ApplicationController
   end
 
   def show
-    @board = Board.find(params[:id])
   end
+  
   def edit
-    @board = Board.find(params[:id])
   end
 
   def update
-    @board = Board.find(params[:id])
-
     if @board.update(title: board_params[:title])
       redirect_to boards_path
     else
