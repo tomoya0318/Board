@@ -18,14 +18,14 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "create board" do
     assert_difference('Board.count') do
-      post boards_url, params: {board: {title: " Third Board", categories: ["category4"]}}
+      post boards_url, params: {board: {title: " Third Board"}}
     end
     assert_redirected_to boards_path
   end
 
   test "create board with invalid data" do
     assert_no_difference('Board.count') do
-      post boards_url, params: {board: {title: "", categories: []}}
+      post boards_url, params: {board: {title: ""}}
     end
     assert_response :unprocessable_entity
   end
@@ -47,9 +47,11 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+
   test "destroy board" do
+    board = boards(:one)
     assert_difference('Board.count', -1) do
-      delete board_url(@board)
+        delete board_url(board)
     end
     assert_redirected_to boards_path
   end
