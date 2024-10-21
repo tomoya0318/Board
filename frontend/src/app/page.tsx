@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -11,6 +11,6 @@ const Home = () => {
       </Link>
     </>
   );
-}
+};
 
 export default Home;
