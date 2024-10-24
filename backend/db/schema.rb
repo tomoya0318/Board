@@ -15,18 +15,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_10_085415) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "boards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "boards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
     t.string "categories", default: [], array: true
   end
 
-  create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "board_id", null: false
+  create_table "categories", force: :cascade do |t|
+    t.bigint "board_id", null: false
     t.string "label"
     t.string "items", default: [], array: true
-    t.string "string", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_categories_on_board_id"
