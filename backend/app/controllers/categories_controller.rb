@@ -1,48 +1,56 @@
 class CategoriesController < ApplicationController
+  before_action :set_board, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
   def index
-    @categories = Category.all
+    @categories = @board.categories
+    render json: @categories
   end
 
   def new
-    @category = Category.new
+    @category = @board.categories.new
+    render json: @category
   end
 
   def create
-    @board = Board.find(params[:board_id])
     @category = @board.categories.new(category_params)
 
     if @category.save
-      redirect_to board_path(@board)
+      redirect_to "/boards/#{@category.board.id}"
     else
-      render :new, status: :unprocessable_entity
+      render json:@category.errors, status: :unprocessable_entity
     end
   end
 
   def show
-    @category = Category.find(params[:id])
+    render json: @category
   end
   
   def edit
-    @category = Category.find(params[:id])
+    render json: @category
   end
 
   def update
-    @category = Category.find(params[:id])
-  
     if @category.update(label: category_params[:label])
-      redirect_to board_path(@category.board)
+      redirect_to "/boards/#{@category.board.id}"
     else
-      render :edit, status: :unprocessable_entity
+      render json:@category.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @category = Category.find(params[:id])
     @category.destroy
-    redirect_to board_categories_path(@category.board)
+    redirect_to "/boards/#{@category.board.id}/categories"
   end
 
   private
+  def set_board
+    @board = Board.find(params[:board_id]) 
+  end
+
+  def set_category
+    @category = Category.find(params[:id])
+  end
+
   def category_params
     params.require(:category).permit(:label)
   end

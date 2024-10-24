@@ -1,39 +1,43 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
   def index
-      @boards = Board.all
+    @boards = Board.all
+    render json:@boards
   end
 
   def new
-      @board = Board.new
+    @board = Board.new
+    render json:@boards
   end
 
   def create
-      @board = Board.new(board_params)
-      if @board.save
-          redirect_to boards_path
-      else
-          render :new, status: :unprocessable_entity
-      end
+    @board = Board.new(board_params)
+    if @board.save
+      redirect_to "/boards"
+    else
+      render json: @board.errors, status: :unprocessable_entity
+    end
   end
 
   def show
+    render json: @board
   end
   
   def edit
+    render json: @board
   end
 
   def update
     if @board.update(title: board_params[:title])
-      redirect_to boards_path
+      redirect_to '/boards'
     else
-      render :edit, status: :unprocessable_entity
+      render json: @board.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
     @board.destroy
-    redirect_to boards_url
+    head :no_content
   end
 
   private
