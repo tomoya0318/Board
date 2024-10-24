@@ -1,46 +1,51 @@
 class BoardsController < ApplicationController
-    def index
-        @boards = Board.all
-    end
+  before_action :set_board, only: [:show, :edit, :update, :destroy]
+  def index
+    @boards = Board.all
+    render json:@boards
+  end
 
-    def new
-        @board = Board.new
-    end
+  def new
+    @board = Board.new
+    render json:@boards
+  end
 
-    def create
-        @board = Board.new(board_params)
-        if @board.save
-            redirect_to boards_path
-        else
-            render :new, status: :unprocessable_entity
-        end
+  def create
+    @board = Board.new(board_params)
+    if @board.save
+      redirect_to "/boards"
+    else
+      render json: @board.errors, status: :unprocessable_entity
     end
+  end
 
-    def show
-      @board = Board.find(params[:id])
-    end
-    def edit
-      @board = Board.find(params[:id])
-    end
-
-    def update
-      @board = Board.find(params[:id])
+  def show
+    render json: @board
+  end
   
-      if @board.update(title: board_params[:title])
-        redirect_to boards_path
-      else
-        render :edit, status: :unprocessable_entity
-      end
+  def edit
+    render json: @board
+  end
+
+  def update
+    if @board.update(title: board_params[:title])
+      redirect_to '/boards'
+    else
+      render json: @board.errors, status: :unprocessable_entity
     end
-  
-    def destroy
+  end
+
+  def destroy
+    @board.destroy
+    head :no_content
+  end
+
+  private
+    def set_board
       @board = Board.find(params[:id])
-      @board.destroy
-      redirect_to boards_path
     end
 
-    private
     def board_params
-      params.require(:board).permit(:title, categories: [])
+      params.require(:board).permit(:title)
     end
 end
