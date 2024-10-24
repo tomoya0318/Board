@@ -7,55 +7,56 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "index" do
-    get board_categories_url(@board)
+    get "/boards/#{@board.id}/categories"
     assert_response :success
     assert_not_nil assigns(:categories)
   end
 
   test "new" do
-    get new_board_category_url(@board)
+    get "/boards/#{@board.id}/categories/new"
     assert_response :success
   end
 
   test "create" do
-    assert_difference('Category.count', 1) do
-      post create_board_category_url(@board), params: { category: { label: "New Category" } }
+    assert_difference("Category.count", 1) do
+      post "/boards/#{@board.id}/categories", params: { category: { label: "New Category" } }
     end
-    assert_redirected_to board_path(@board)
+    assert_redirected_to "/boards/#{@board.id}"
   end
 
   test "not create category with invalid data" do
-    assert_no_difference('Category.count') do
-      post create_board_category_url(@board), params: { category: { label: "" } }
+    assert_no_difference("Category.count") do
+      post "/boards/#{@board.id}/categories", params: { category: { label: "" } }
     end
     assert_response :unprocessable_entity
   end
 
   test "show" do
-    get board_category_url(@board, @category)
+    get "/boards/#{@board.id}/categories/#{@category.id}"
     assert_response :success
   end
 
   test "edit" do
-    get edit_board_category_url(@board, @category)
+    get "/boards/#{@board.id}/categories/#{@category.id}/edit"
     assert_response :success
   end
+
   test "update" do
-    patch update_board_category_url(@board, @category), params: { category: { label: "Updated Label" } }
-    assert_redirected_to board_path(@board)
+    patch "/boards/#{@board.id}/categories/#{@category.id}", params: { category: { label: "Updated Label" } }
+    assert_redirected_to "/boards/#{@board.id}"
     @category.reload
     assert_equal "Updated Label", @category.label
   end
 
   test "not update category with invalid data" do
-    patch update_board_category_url(@board, @category), params: { category: { label: "" } }
+    patch "/boards/#{@board.id}/categories/#{@category.id}", params: { category: { label: "" } }
     assert_response :unprocessable_entity
   end
   
   test "destroy" do
-    assert_difference('Category.count', -1) do
-      delete destroy_board_category_url(@board, @category)
+    assert_difference("Category.count", -1) do
+      delete "/boards/#{@board.id}/categories/#{@category.id}"
     end
-    assert_redirected_to board_categories_path(@board)
+    assert_redirected_to "/boards/#{@board.id}/categories"
   end
 end
