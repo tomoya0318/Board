@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { BoardColumn } from "./_components/BoardColumn";
 import { Board as BoardProps } from "@/types/board";
 
@@ -40,10 +40,36 @@ const defaultData: BoardProps = {
 
 const Board = (): JSX.Element => {
   const [board, setBoard] = useState(defaultData);
+  const [showMenu, setShowMenu] = useState<Record<number, boolean>>({});
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const closeWithClickOutSide = (e:React.MouseEvent) => {
+    // コラムのメニューボタンと，メニューの中身に触ったかを判定
+    const isRelatedMenuButton = (e.target as HTMLElement).closest('[is-menu="true"]');
+
+    if (!isRelatedMenuButton) {
+      const allMenusClosed = board.columns.reduce((acc, column) => {
+        acc[column.id] = false;
+        return acc;
+      }, {} as Record<number, boolean>);
+
+      setShowMenu(allMenusClosed);
+    }
+
+  }
   return (
-    <div className="p-2 mt-2 mb-8 h-screen overflow-hidden">
+    <div
+      className="p-2 mt-2 mb-8 h-screen overflow-hidden"
+      onClick={closeWithClickOutSide}
+    >
       <div className="text-3xl font-bold bg-gray-200">{board.title}</div>
-      <BoardColumn columns={board.columns} setBoard={setBoard} />
+      <BoardColumn
+        columns={board.columns}
+        setBoard={setBoard}
+        menuRef={menuRef}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
     </div>
   );
 };
