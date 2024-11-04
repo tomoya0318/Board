@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, LegacyRef } from "react";
 import { ColumnItem } from "./ColumnItem";
 import { Board, Column } from "@/types/board";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import { AddColumnForm } from "./AddColumnForm";
 import { EditColumnMenu } from "./EditColumnMenu";
@@ -11,7 +11,7 @@ export type BoardColumnProps = {
   setBoard: React.Dispatch<React.SetStateAction<Board>>;
   menuRef: LegacyRef<HTMLDivElement>;
   showMenu: Record<number, boolean>;
-  setShowMenu:React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
+  setShowMenu: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
 };
 
 export const BoardColumn = ({
@@ -19,7 +19,7 @@ export const BoardColumn = ({
   setBoard,
   menuRef,
   showMenu,
-  setShowMenu
+  setShowMenu,
 }: BoardColumnProps): JSX.Element => {
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
   const prevColumnsLengthRef = useRef(columns.length);
@@ -29,18 +29,18 @@ export const BoardColumn = ({
     if (columns.length > prevColumnsLengthRef.current) {
       const newIsEditing = columns.reduce(
         (acc, column) => {
-            acc[column.id] = false;
+          acc[column.id] = false;
           return acc;
         },
         { ...isEditing } as Record<number, boolean>,
       );
       const newShowMenu = columns.reduce(
         (acc, column) => {
-            acc[column.id] = false;
+          acc[column.id] = false;
           return acc;
         },
-        { ...showMenu } as Record<number, boolean>
-      )
+        { ...showMenu } as Record<number, boolean>,
+      );
       setIsEditing(newIsEditing);
       setShowMenu(newShowMenu);
     }
@@ -48,11 +48,14 @@ export const BoardColumn = ({
   }, [columns]);
 
   const handleShowMenu = (columnId: number) => {
-    const newShowMenu = columns.reduce((acc, column) => {
-      // クリックされたcolumnId以外は全てfalse
-      acc[column.id] = column.id === columnId;
-      return acc;
-    }, {} as Record<number, boolean>);
+    const newShowMenu = columns.reduce(
+      (acc, column) => {
+        // クリックされたcolumnId以外は全てfalse
+        acc[column.id] = column.id === columnId;
+        return acc;
+      },
+      {} as Record<number, boolean>,
+    );
     setShowMenu(newShowMenu);
   };
 
@@ -83,11 +86,13 @@ export const BoardColumn = ({
                   <input
                     type="text"
                     value={column.label}
-                    onChange={(e) => handleLabelChange(column.id, e.target.value)}
+                    onChange={(e) =>
+                      handleLabelChange(column.id, e.target.value)
+                    }
                     onBlur={() => handleBlur(column.id)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        handleBlur(column.id)
+                        handleBlur(column.id);
                       }
                     }}
                     className="border rounded px-1 w-full"

@@ -43,20 +43,24 @@ const Board = (): JSX.Element => {
   const [showMenu, setShowMenu] = useState<Record<number, boolean>>({});
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const closeWithClickOutSide = (e:React.MouseEvent) => {
+  const closeWithClickOutSide = (e: React.MouseEvent) => {
     // コラムのメニューボタンと，メニューの中身に触ったかを判定
-    const isRelatedMenuButton = (e.target as HTMLElement).closest('[is-menu="true"]');
+    const isRelatedMenuButton = (e.target as HTMLElement).closest(
+      '[is-menu="true"]',
+    );
 
     if (!isRelatedMenuButton) {
-      const allMenusClosed = board.columns.reduce((acc, column) => {
-        acc[column.id] = false;
-        return acc;
-      }, {} as Record<number, boolean>);
+      const allMenusClosed = board.columns.reduce(
+        (acc, column) => {
+          acc[column.id] = false;
+          return acc;
+        },
+        {} as Record<number, boolean>,
+      );
 
       setShowMenu(allMenusClosed);
     }
-
-  }
+  };
   return (
     <div
       className="p-2 mt-2 mb-8 h-screen overflow-hidden"
