@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, LegacyRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ColumnItem } from "./ColumnItem";
 import { Board, Column } from "@/types/board";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -9,7 +9,6 @@ import { EditColumnMenu } from "./EditColumnMenu";
 export type BoardColumnProps = {
   columns: Column[];
   setBoard: React.Dispatch<React.SetStateAction<Board>>;
-  menuRef: LegacyRef<HTMLDivElement>;
   showMenu: Record<number, boolean>;
   setShowMenu: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
 };
@@ -17,7 +16,6 @@ export type BoardColumnProps = {
 export const BoardColumn = ({
   columns,
   setBoard,
-  menuRef,
   showMenu,
   setShowMenu,
 }: BoardColumnProps): JSX.Element => {
@@ -114,7 +112,6 @@ export const BoardColumn = ({
             {showMenu[column.id] && (
               <EditColumnMenu
                 columnId={column.id}
-                menuRef={menuRef}
                 setIsEditing={setIsEditing}
                 setShowMenu={setShowMenu}
               />

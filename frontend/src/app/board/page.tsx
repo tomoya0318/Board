@@ -41,7 +41,6 @@ const defaultData: BoardProps = {
 const Board = (): JSX.Element => {
   const [board, setBoard] = useState(defaultData);
   const [showMenu, setShowMenu] = useState<Record<number, boolean>>({});
-  const menuRef = useRef<HTMLDivElement>(null);
 
   const closeWithClickOutSide = (e: React.MouseEvent) => {
     // コラムのメニューボタンと，メニューの中身に触ったかを判定
@@ -70,7 +69,6 @@ const Board = (): JSX.Element => {
       <BoardColumn
         columns={board.columns}
         setBoard={setBoard}
-        menuRef={menuRef}
         showMenu={showMenu}
         setShowMenu={setShowMenu}
       />

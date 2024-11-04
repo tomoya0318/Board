@@ -1,14 +1,11 @@
-import { LegacyRef } from "react";
 type EditColumnMenuProps = {
   columnId: number;
-  menuRef: LegacyRef<HTMLDivElement>;
   setIsEditing: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
   setShowMenu: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
 };
 
 export const EditColumnMenu = ({
   columnId,
-  menuRef,
   setIsEditing,
   setShowMenu,
 }: EditColumnMenuProps) => {
