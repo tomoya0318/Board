@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { BoardColumn } from "./_components/BoardColumn";
 import { Board as BoardProps } from "@/types/board";
 

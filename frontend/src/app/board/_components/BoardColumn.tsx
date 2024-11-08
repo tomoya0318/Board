@@ -112,6 +112,7 @@ export const BoardColumn = ({
             {showMenu[column.id] && (
               <EditColumnMenu
                 columnId={column.id}
+                setBoard={setBoard}
                 setIsEditing={setIsEditing}
                 setShowMenu={setShowMenu}
               />

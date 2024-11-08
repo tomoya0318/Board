@@ -1,11 +1,15 @@
+import { Board } from "@/types/board";
+
 type EditColumnMenuProps = {
   columnId: number;
+  setBoard: React.Dispatch<React.SetStateAction<Board>>;
   setIsEditing: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
   setShowMenu: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
 };
 
 export const EditColumnMenu = ({
   columnId,
+  setBoard,
   setIsEditing,
   setShowMenu,
 }: EditColumnMenuProps) => {
@@ -20,6 +24,13 @@ export const EditColumnMenu = ({
     }));
   };
 
+  const handleDeleting = (columnId: number) => {
+    setBoard((prev) => ({
+      ...prev,
+      columns: prev.columns.filter(column => column.id != columnId)
+    }))
+  }
+
   return (
     <div
       is-menu="true"
@@ -32,10 +43,7 @@ export const EditColumnMenu = ({
         Edit name
       </button>
       <button
-        onClick={() => {
-          // ここに列削除のロジックを実装
-          console.log(`Delete column ${columnId}`);
-        }}
+        onClick={() => handleDeleting(columnId)}
         className="w-full text-left py-2 hover:bg-gray-100 text-red-600"
       >
         Delete Column
