@@ -6,51 +6,53 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "index" do
-    get boards_url
+    get "/boards" 
     assert_response :success
     assert_not_nil assigns(:boards)
   end
 
   test "new board" do
-    get new_board_url
+    get "/boards/new"
     assert_response :success
   end
 
   test "create board" do
-    assert_difference('Board.count') do
-      post boards_url, params: {board: {title: " Third Board", categories: ["category4"]}}
+    assert_difference("Board.count") do
+      post "/boards", params: {board: {title: " Third Board"}}
     end
     assert_redirected_to boards_path
   end
 
   test "create board with invalid data" do
-    assert_no_difference('Board.count') do
-      post boards_url, params: {board: {title: "", categories: []}}
+    assert_no_difference("Board.count") do
+      post "/boards", params: {board: {title: ""}}
     end
     assert_response :unprocessable_entity
   end
 
   test "edit" do
-    get edit_board_url(@board)
+    get "/boards/#{@board.id}/edit"
     assert_response :success
   end
 
   test "update board" do
-    patch board_url(@board), params: {board: {title: "Updated Title"}}
+    patch "/boards/#{@board.id}", params: {board: {title: "Updated Title"}}
     assert_redirected_to boards_path
     @board.reload
     assert_equal "Updated Title", @board.title
   end
 
   test "update board with invalid data" do
-    patch board_url(@board), params: {board: {title: ""}}
+    patch "/boards/#{@board.id}", params: {board: {title: ""}}
     assert_response :unprocessable_entity
   end
 
+
   test "destroy board" do
-    assert_difference('Board.count', -1) do
-      delete board_url(@board)
+    @board = boards(:one)
+    assert_difference("Board.count", -1) do
+      delete "/boards/#{@board.id}"
     end
-    assert_redirected_to boards_path
+    assert_response :no_content
   end
 end
